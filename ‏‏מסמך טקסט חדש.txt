@@ -1,0 +1,17 @@
+REM Displays the password of the currently connected wifi
+GUI r
+DELAY 100
+STRING powershell
+ENTER
+DELAY 500
+REM Get the name of the connected Wi-Fi network and copy to clipboard
+STRING (Get-NetConnectionProfile).Name | Set-Clipboard
+ENTER
+DELAY 500
+REM Start of the command before pasting the name with some spacing to make the password easier to see
+STRING "`n`n`n" + (netsh wlan show profile 
+SPACE
+CTRL V
+SPACE
+STRING key=clear | Select-String "Key Content").ToString().Split(":")[1].Trim() + "`n`n`n"
+ENTER
